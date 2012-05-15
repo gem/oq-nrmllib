@@ -14,15 +14,4 @@
 # along with NRML.  If not, see <http://www.gnu.org/licenses/>.
 
 
-"""NRML base path"""
-
-import os
-
-NRML_SCHEMA_FILE = 'nrml.xsd'
-
-
-def nrml_schema_file():
-    """Returns the absolute path to the NRML schema file"""
-    return os.path.join(
-        os.path.abspath(os.path.dirname(__file__)),
-        'schema', NRML_SCHEMA_FILE)
+"""NRML"""
