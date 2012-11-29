@@ -57,7 +57,7 @@
             <xs:element ref="fragilityModel" />
             <xs:element ref="vulnerabilityModel" />
             <xs:element ref="logicTree" />
-            <xs:element ref="disaggregationResultField" />
+            <xs:element ref="disaggMatrices" />
             <xs:element ref="uhsResultSet" />
             <xs:element ref="rawSourceModel" />
             <xs:element ref="dmgDistPerAsset" />
@@ -68,6 +68,7 @@
             <xs:element ref="hazardCurves" />
             <xs:element ref="lossCurves" />
             <xs:element ref="lossMap" />
+            <xs:element ref="bcrMap" />
             <!-- For Event-Based GMFs, applies to a specific logic tree branch -->
             <xs:element ref="gmfCollection" />
             <!-- For Scenario GMFs, or 'complete logic tree' GMF sets for Event-Based calculations -->
