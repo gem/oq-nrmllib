@@ -17,7 +17,7 @@ import collections
 from nose import tools
 from lxml import etree
 
-import openquake.nrmllib
+import nrmllib
 
 
 def deep_eq(a, b):
@@ -85,7 +85,7 @@ def assert_xml_equal(a, b):
 
 
 def validates_against_xml_schema(xml_instance_path,
-                                 schema_path=openquake.nrmllib.nrml_schema_file()):
+                                 schema_path=nrmllib.nrml_schema_file()):
     """
     Check whether an XML file validates against an XML schema.
     """

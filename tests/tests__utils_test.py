@@ -16,7 +16,7 @@
 
 import unittest
 
-from openquake.nrmllib import models
+from nrmllib import models
 import _utils
 
 

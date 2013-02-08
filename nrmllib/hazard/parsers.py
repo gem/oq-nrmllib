@@ -17,17 +17,17 @@
 """These parsers read NRML XML files and produce object representations of the
 data.
 
-See :module:`openquake.nrmllib.models`.
+See :module:`nrmllib.models`.
 """
 
 import decimal
 
 from lxml import etree
 
-import openquake.nrmllib
+import nrmllib
 
-from openquake.nrmllib import models
-from openquake.nrmllib import utils
+from nrmllib import models
+from nrmllib import utils
 
 
 def _xpath(elem, expr):
@@ -40,7 +40,7 @@ def _xpath(elem, expr):
     :param elem:
         A :class:`lxml.etree._Element` instance.
     """
-    return elem.xpath(expr, namespaces=openquake.nrmllib.PARSE_NS_MAP)
+    return elem.xpath(expr, namespaces=nrmllib.PARSE_NS_MAP)
 
 
 class FaultGeometryParserMixin(object):
@@ -55,7 +55,7 @@ class FaultGeometryParserMixin(object):
             :class:`lxml.etree._Element` instance representing a geometry.
         :returns:
             Fully populated
-            :class:`openquake.nrmllib.models.SimpleFaultGeometry` object.
+            :class:`nrmllib.models.SimpleFaultGeometry` object.
         """
         simple_geom = models.SimpleFaultGeometry()
 
@@ -79,7 +79,7 @@ class FaultGeometryParserMixin(object):
             :class:`lxml.etree._Element` instance representing a geometry.
         :returns:
             Fully populated
-            :class:`openquake.nrmllib.models.ComplexFaultGeometry` object.
+            :class:`nrmllib.models.ComplexFaultGeometry` object.
         """
         complex_geom = models.ComplexFaultGeometry()
 
@@ -111,11 +111,11 @@ class SourceModelParser(FaultGeometryParserMixin):
         Filename or file-like object containing the XML data.
     """
 
-    _SM_TAG = '{%s}sourceModel' % openquake.nrmllib.NAMESPACE
-    _PT_TAG = '{%s}pointSource' % openquake.nrmllib.NAMESPACE
-    _AREA_TAG = '{%s}areaSource' % openquake.nrmllib.NAMESPACE
-    _SIMPLE_TAG = '{%s}simpleFaultSource' % openquake.nrmllib.NAMESPACE
-    _COMPLEX_TAG = '{%s}complexFaultSource' % openquake.nrmllib.NAMESPACE
+    _SM_TAG = '{%s}sourceModel' % nrmllib.NAMESPACE
+    _PT_TAG = '{%s}pointSource' % nrmllib.NAMESPACE
+    _AREA_TAG = '{%s}areaSource' % nrmllib.NAMESPACE
+    _SIMPLE_TAG = '{%s}simpleFaultSource' % nrmllib.NAMESPACE
+    _COMPLEX_TAG = '{%s}complexFaultSource' % nrmllib.NAMESPACE
 
     def __init__(self, source):
         self.source = source
@@ -152,7 +152,7 @@ class SourceModelParser(FaultGeometryParserMixin):
         rupt_aspect_ratio.
 
         :param model:
-            Instance of a source class from :module:`openquake.nrmllib.models`.
+            Instance of a source class from :module:`nrmllib.models`.
         :param src_elem:
             :class:`lxml.etree._Element` instance representing a source.
         """
@@ -175,7 +175,7 @@ class SourceModelParser(FaultGeometryParserMixin):
                                        './/nrml:incrementalMFD'))
 
         if mfd_elem.tag == '{%s}truncGutenbergRichterMFD' % (
-            openquake.nrmllib.NAMESPACE):
+            nrmllib.NAMESPACE):
             mfd = models.TGRMFD()
             mfd.a_val = float(mfd_elem.get('aValue'))
             mfd.b_val = float(mfd_elem.get('bValue'))
@@ -183,7 +183,7 @@ class SourceModelParser(FaultGeometryParserMixin):
             mfd.max_mag = float(mfd_elem.get('maxMag'))
 
         elif mfd_elem.tag == '{%s}incrementalMFD' % (
-            openquake.nrmllib.NAMESPACE):
+            nrmllib.NAMESPACE):
             mfd = models.IncrementalMFD()
             mfd.min_mag = float(mfd_elem.get('minMag'))
             mfd.bin_width = float(mfd_elem.get('binWidth'))
@@ -199,7 +199,7 @@ class SourceModelParser(FaultGeometryParserMixin):
         :param src_elem:
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
-            `list` of :class:`openquake.nrmllib.models.NodalPlane` objects.
+            `list` of :class:`nrmllib.models.NodalPlane` objects.
         """
         npd = []
 
@@ -220,7 +220,7 @@ class SourceModelParser(FaultGeometryParserMixin):
         :param src_elem:
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
-            `list` of :class:`openquake.nrmllib.models.HypocentralDepth`
+            `list` of :class:`nrmllib.models.HypocentralDepth`
             objects.
         """
         hdd = []
@@ -240,7 +240,7 @@ class SourceModelParser(FaultGeometryParserMixin):
         :param src_elem:
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
-            Fully populated :class:`openquake.nrmllib.models.PointSource`
+            Fully populated :class:`nrmllib.models.PointSource`
             object.
         """
         point = models.PointSource()
@@ -270,7 +270,7 @@ class SourceModelParser(FaultGeometryParserMixin):
         :param src_elem:
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
-            Fully populated :class:`openquake.nrmllib.models.AreaSource`
+            Fully populated :class:`nrmllib.models.AreaSource`
             object.
         """
         area = models.AreaSource()
@@ -303,7 +303,7 @@ class SourceModelParser(FaultGeometryParserMixin):
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
             Fully populated
-            :class:`openquake.nrmllib.models.SimpleFaultSource` object.
+            :class:`nrmllib.models.SimpleFaultSource` object.
         """
         simple = models.SimpleFaultSource()
         cls._set_common_attrs(simple, src_elem)
@@ -323,7 +323,7 @@ class SourceModelParser(FaultGeometryParserMixin):
             :class:`lxml.etree._Element` instance representing a source.
         :returns:
             Fully populated
-            :class:`openquake.nrmllib.models.ComplexFaultSource` object.
+            :class:`nrmllib.models.ComplexFaultSource` object.
         """
         complx = models.ComplexFaultSource()
         cls._set_common_attrs(complx, src_elem)
@@ -339,12 +339,12 @@ class SourceModelParser(FaultGeometryParserMixin):
         form.
 
         :returns:
-            :class:`openquake.nrmllib.models.SourceModel` instance.
+            :class:`nrmllib.models.SourceModel` instance.
         """
         src_model = models.SourceModel()
 
         schema = etree.XMLSchema(
-            etree.parse(openquake.nrmllib.nrml_schema_file()))
+            etree.parse(nrmllib.nrml_schema_file()))
 
         tree = etree.iterparse(self.source, events=('start', 'end'),
                                schema=schema)
@@ -377,18 +377,18 @@ class SiteModelParser(object):
 
     def parse(self):
         """Parse the site model XML content and generate
-        :class:`openquake.nrmllib.model.SiteModel` objects.
+        :class:`nrmllib.model.SiteModel` objects.
 
         :returns:
-            A iterable of :class:`openquake.nrmllib.model.SiteModel` objects.
+            A iterable of :class:`nrmllib.model.SiteModel` objects.
         """
         schema = etree.XMLSchema(
-            etree.parse(openquake.nrmllib.nrml_schema_file()))
+            etree.parse(nrmllib.nrml_schema_file()))
         tree = etree.iterparse(self.source, events=('start',),
                                schema=schema)
 
         for _, element in tree:
-            if element.tag == '{%s}site' % openquake.nrmllib.NAMESPACE:
+            if element.tag == '{%s}site' % nrmllib.NAMESPACE:
                 site = models.SiteModel()
                 site.vs30 = float(element.get('vs30'))
                 site.vs30_type = element.get('vs30Type').strip()
@@ -413,8 +413,8 @@ class SiteModelParser(object):
 # constraint maxOccurs="1" in nrml.xsd
 class RuptureModelParser(FaultGeometryParserMixin):
 
-    _SIMPLE_RUPT_TAG = '{%s}simpleFaultRupture' % openquake.nrmllib.NAMESPACE
-    _COMPLEX_RUPT_TAG = '{%s}complexFaultRupture' % openquake.nrmllib.NAMESPACE
+    _SIMPLE_RUPT_TAG = '{%s}simpleFaultRupture' % nrmllib.NAMESPACE
+    _COMPLEX_RUPT_TAG = '{%s}complexFaultRupture' % nrmllib.NAMESPACE
 
     def __init__(self, source):
         self.source = source
@@ -430,7 +430,7 @@ class RuptureModelParser(FaultGeometryParserMixin):
             :class:`lxml.etree._Element` instance for a simple rupture.
         :returns:
             Populated
-            :class:`openquake.nrmllib.models.SimpleFaultRuptureModel` object.
+            :class:`nrmllib.models.SimpleFaultRuptureModel` object.
         """
         model = models.SimpleFaultRuptureModel()
         magnitude_elem, rake_elem, hypocenter_elem, geom_elem = list(element)
@@ -448,7 +448,7 @@ class RuptureModelParser(FaultGeometryParserMixin):
             :class:`lxml.etree._Element` instance for a complex rupture.
         :returns:
             Populated
-            :class:`openquake.nrmllib.models.ComplexFaultRuptureModel` object.
+            :class:`nrmllib.models.ComplexFaultRuptureModel` object.
         """
         model = models.ComplexFaultRuptureModel()
         magnitude_elem, rake_elem, hypocenter_elem, geom_elem = list(element)
@@ -466,12 +466,12 @@ class RuptureModelParser(FaultGeometryParserMixin):
         a single ComplexFaultRupture object.
 
         :returns:
-            :class:`openquake.nrmllib.models.SimpleFaultRuptureModel`
+            :class:`nrmllib.models.SimpleFaultRuptureModel`
             instance or
-            :class:`openquake.nrmllib.models.ComplexFaultRuptureModel` instance
+            :class:`nrmllib.models.ComplexFaultRuptureModel` instance
         """
         schema = etree.XMLSchema(etree.parse(
-                openquake.nrmllib.nrml_schema_file()))
+                nrmllib.nrml_schema_file()))
         tree = etree.iterparse(self.source, schema=schema)
         for _, element in tree:
             parse_fn = self._parse_fn_map.get(element.tag)

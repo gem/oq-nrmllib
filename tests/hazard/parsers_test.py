@@ -20,14 +20,14 @@ import unittest
 
 from lxml import etree
 
-from openquake.nrmllib import models
+from nrmllib import models
 
 from tests import _utils
-from openquake.nrmllib.hazard import parsers
+from nrmllib.hazard import parsers
 
 
 class SourceModelParserTestCase(unittest.TestCase):
-    """Tests for the :class:`openquake.nrmllib.parsers.SourceModelParser` parser."""
+    """Tests for the :class:`nrmllib.parsers.SourceModelParser` parser."""
 
     SAMPLE_FILE = 'examples/source_model/mixed.xml'
     BAD_NAMESPACE = '''\
