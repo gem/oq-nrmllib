@@ -75,7 +75,7 @@ setup(
     long_description=__doc__,
     platforms=['any'],
     packages=find_packages(exclude=['tests', 'tests.*']),
-    package_data={'nrml': package_data},
+    package_data={'nrmllib': package_data},
     requires=['lxml'],  # Shows up when running `python setup.py --requires`
     provides=['nrml (0.4)'],
     install_requires=['lxml'],
@@ -91,7 +91,6 @@ setup(
         'Programming Language :: Python :: 2',
         'Topic :: Scientific/Engineering',
     ),
-    namespace_packages=['openquake'],
 
     zip_safe=False,
 
