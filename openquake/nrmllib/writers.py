@@ -16,6 +16,8 @@
 import cStringIO
 from xml.sax.saxutils import XMLGenerator
 
+from openquake.nrmllib.hazard.writers import *
+
 
 class _PrettyXMLGenerator(XMLGenerator):
     """
